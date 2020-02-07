@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="themes/blueTheme.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css">
+    <title>Home Page</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <script>
+
+
+        //code for local storage goes here
+        function replaceText() {
+            document.getElementById("form2").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+            <div class="ui-field-contain">
+                <label for="username">Name:</label>
+                <input type="text" required name="username" autofocus id="username" value=""
+                    placeholder="please enter your name.">
+            </div>
+            <div class="ui-field-contain">
+                <label for="email">Email Address:</label>
+                <input type="email" required name="email" id="username" value=""
+                    placeholder="Please enter your email address.">
+            </div>
+            <div class="ui-field-contain">
+                <label for="comments">Comments:</label>
+                <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+            </div>
+            <div class="ui-field-contain">
+                <label for="newsletter">
+                    <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                    box if you wish to recieve our newsletter
+                </label>
+            </div>
+            <div class="ui-field-contain">
+                <input type="submit" value="send" name="submit">
+            </div>
+    </div>
+    </form>`
+        }
+
+    </script>
+</head>
+
+<script>
+    //check if local storage is supported
+    if (window.localStorage) {
+        console.log("local storage is available!")
+    } else {
+        console.log("local storage not available!")
+    }
+
+
+    //check if it doesnt exist and if so, make a new one
+    if (!localStorage.calories) {
+        localStorage.setItem("calories", "0")
+        console.log("New local storage area created")
+
+    }
+    else {
+        console.log("local storage area exists!")
+    }
+
+
+
+
+    //call the function to update the calore counts every 1.5 seconds
+    var constant = setInterval(updateCalorieCounts, 100);
+
+
+    //update the calore counters 
+    function updateCalorieCounts() {
+        document.getElementById("caloriecounter").innerText = localStorage.calories;
+        document.getElementById("bottomcalories").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecounterinformation").innerText = localStorage.calories;
+        document.getElementById("bottomcaloriesinformation").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecounterhelp").innerText = localStorage.calories;
+        document.getElementById("bottomcalorieshelp").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecounterbreadsandcereals").innerText = localStorage.calories;
+        document.getElementById("bottomcaloriesbreadsandcereals").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecountermeatsandfish").innerText = localStorage.calories;
+        document.getElementById("bottomcaloriesmeatsandfish").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecounterfruitandveg").innerText = localStorage.calories;
+        document.getElementById("bottomcaloriesfruitandveg").innerText = "Calories: " + localStorage.calories + "";
+        document.getElementById("caloriecountermilkanddairy").innerText = localStorage.calories;
+        document.getElementById("bottomcaloriesmilkanddairy").innerText = "Calories: " + localStorage.calories + "";
+
+    }
+    //set the calorie counter to 0
+    function clearCalories() {
+        localStorage.setItem("calories", "0");
+    }
+
+
+    //add the item to the calorie count (ammount is the ammount of calories)
+    function add(ammount) {
+        localStorage.setItem("calories", parseFloat(localStorage.calories) + ammount)
+    }
+</script>
+
+
+
+
+
+
+
+
+<body onload="replaceText()">
+    <!--home page start-->
+    <div data-role="page" data-add-back-btn="true" id="main" data-theme="a">
+        <header data-role="header" data-position="fixed">
+            <h1>Calorie count</h1>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecounter">0</h1>
+        </div>
+
+
+
+        <main data-role="main" data-shadow="false" class="ui-content" data-theme="a">
+
+            <ul data-role="listview">
+                <li><a href="#information">
+                        <img src="">
+                        <h2>Information</h2>
+                        <p>Health information</p>
+                    </a>
+                <li><a href="#help">
+                        <img src="">
+                        <h2>Help</h2>
+                        <p>How to use the app</p>
+                    </a>
+                </li>
+                <li><a href="#">
+                        <img src="">
+                        <h2 onclick="clearCalories()">Reset calorie count</h2>
+                        <p onclick="clearCalories()">Set the calorie counter to 0</p>
+                    </a>
+
+                    <!--list to select the food group-->
+                    <div data-role="collapsible">
+                        <h2>Add to calorie counter</h2>
+
+                        <ul data-role="listview" data-theme="a">
+                            <li><a href="#breadsandcereals">Breads And Cereals</a></li>
+                            <li><a href="#meatsandfish">Meats And Fish</a></li>
+                            <li><a href="#fruitandveg">Fruits and Vegetables</a></li>
+                            <li><a href="#milkanddairy">Milk And Dairy Products</a></li>
+
+                        </ul>
+                    </div>
+
+            </ul>
+        </main>
+
+        <div data-role="popup" id="popupBasic">
+                <a href="#" data-rel="back"
+                class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <p><strong>Jquery Mobile 1.4.5</strong></p>
+            <p><strong>developer:</strong>lauchlyn Downs</p>
+            <p><strong>Jquery Mobile 1.4.5</strong></p>
+            <p><strong>Release Date:</strong>10/01/2020</p>
+            <p><strong>Version Number</strong>42353425</p>
+        </div>
+
+        <div data-role="popup" id="popupForm">
+                <a href="#" data-rel="back"
+                class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">
+            </a>
+            <p id="form2"></p>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                    <li><a href="#popupBasic" data-rel="popup" data-icon="info">Developer</a></li>
+                    <li><a href="#popupForm" onclick="replaceText()" data-rel="popup" data-icon="mail">Contact</a>
+                    </li>
+                    <li><a href="#current" id="bottomcalories" data-icon="heart">
+                            <!--calories go here--></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!--home page end-->
+
+
+
+
+
+
+
+
+    <!--information page start-->
+    <div data-role="page" id="information" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Health Information</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Back</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecounterinformation">0</h1>
+        </div>
+
+
+        <!--main menu-->
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <p>
+                <h1>Understanding calories</h1>
+                <p>The amount of energy in an item of food or drink is measured in calories.
+                    When we eat and drink more calories than we use up, our bodies store the excess as body fat. If this
+                    continues over time we may put on weight.</p>
+                <p>As a guide, an average man needs around 2,500kcal (10,500kJ) a day to maintain a healthy body weight.
+                </p>
+                <p>For an average woman, that figure is around 2,000kcal (8,400kJ) a day.
+                    These values can vary depending on age, size and levels of physical activity, among other factors.
+                </p>
+                <h2>Calories and energy balance</h2>
+                <p>
+                    Our bodies need energy to keep us alive and our organs functioning normally. When we eat and drink,
+                    we put energy into our bodies.
+                    Our bodies use up that energy through everyday movement, which includes everything from breathing to
+                    running.
+                </p>
+                <p>To maintain a stable weight, the energy we put into our bodies must be the same as the energy we use
+                    by normal bodily functions and physical activity.
+                    An important part of a healthy diet is balancing the energy you put into your bodies with the energy
+                    you use.</p>
+                <p>For example, the more physical activity we do the more energy we use.
+                    If you consume too much energy on one day, don't worry; just try to take in less energy on the
+                    following days. </p>
+                <h2>
+                    Checking calories in food</h2>
+                <p>
+                    Knowing the calorie content of food and drink can help ensure you're not consuming too much.</p>
+                <p>The calorie content of many shop-bought foods is stated on the packaging as part of the nutrition
+                    label.</p>
+                <p>This information will appear under the &quot;Energy&quot; heading. The calorie content is often given
+                    in kcals, which is short for &quot;kilocalories&quot;, and also in kJ, which is short for
+                    &quot;kilojoules&quot;.
+                    A &quot;kilocalorie&quot; is another word for what is commonly called a &quot;calorie&quot;, so
+                    1,000 calories will be written as 1,000kcals.</p>
+                <p>Kilojoules are the metric measurement of calories. To find the energy content in kilojoules, multiply
+                    the calorie figure by 4.2.</p>
+                <p>The label will usually tell you how many calories are contained in 100 grams or 100 millilitres of
+                    the food or drink, so you can compare the calorie content of different products.</p>
+                <p>Many labels will also state the number of calories in &quot;one portion&quot; of the food. But
+                    remember that the manufacturer's idea of &quot;one portion&quot; may not be the same as yours, so
+                    there could be more calories in the portion you serve yourself.</p>
+                <p>You can use the calorie information to assess how a particular food fits into your daily calorie
+                    intake. </p>
+
+                <h2>Calorie counters</h2>
+                <p>
+                    There is a wide range of online calorie counters for computers and mobile phones. Many of these can
+                    be downloaded and used for free.</p>
+                <p>NHS Choices can't verify their data but they can be helpful to track your calories by recording all
+                    of the food you eat in a day.</p>
+                <p>Some restaurants put calorie information on their menus, so you can also check the calorie content of
+                    foods when eating out. Calories should be given per portion or per meal.</p>
+                <h2>Burning calories</h2>
+                <p>
+                    The amount of calories people use by doing a certain physical activity varies, depending on a range
+                    of factors, including size and age.</p>
+                <p>The more vigorously you do an activity, the more calories you will use. For example, fast walking
+                    will burn more calories than walking at a moderate pace.</p>
+                <p>If you're gaining weight, it could mean you've been regularly eating and drinking more calories than
+                    you've been using.</p>
+                <p>To lose weight, you need to use more energy than you consume, and continue this over a period of
+                    time.
+                </p>
+
+            </p>
+
+
+
+            </ul>
+            <script>
+                function replaceText2() {
+                    document.getElementById("form3").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+                <div class="ui-field-contain">
+                    <label for="username">Name:</label>
+                    <input type="text" required name="username" autofocus id="username" value=""
+                        placeholder="please enter your name.">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="email">Email Address:</label>
+                    <input type="email" required name="email" id="username" value=""
+                        placeholder="Please enter your email address.">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="comments">Comments:</label>
+                    <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="newsletter">
+                        <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                        box if you wish to recieve our newsletter
+                    </label>
+                </div>
+                <div class="ui-field-contain">
+                    <input type="submit" value="send" name="submit">
+                </div>
+        </div>
+        </form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic2">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm3">
+                <p id="form3">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic2" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm3" onclick="replaceText2()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcaloriesinformation" data-icon="heart">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <!--information page end-->
+
+    </div>
+
+
+    <!--Help page start-->
+    <div data-role="page" id="help" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Help</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Back</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories </h1>
+            <h1 id="caloriecounterhelp">0</h1>
+        </div>
+
+
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <p>
+                this is where the help information goes
+
+            </p>
+
+
+
+            </ul>
+            <script>
+                function replaceText4() {
+                    document.getElementById("form4").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+                <div class="ui-field-contain">
+                    <label for="username">Name:</label>
+                    <input type="text" required name="username" autofocus id="username" value=""
+                        placeholder="please enter your name.">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="email">Email Address:</label>
+                    <input type="email" required name="email" id="username" value=""
+                        placeholder="Please enter your email address.">
+                </div>
+                <div class="ui-field-contain">
+                    <label for="comments">Comments:</label>
+                    <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="newsletter">
+                        <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                        box if you wish to recieve our newsletter
+                    </label>
+                </div>
+                <div class="ui-field-contain">
+                    <input type="submit" value="send" name="submit">
+                </div>
+        </div>
+        </form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic4">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm4">
+                <p id="form4">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic4" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm4" onclick="replaceText4()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcalorieshelp" data-icon="heart">
+                                <!--calories go here--></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!--Help page end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Breads and cerealsstart-->
+    <div data-role="page" id="breadsandcereals" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Breads and cereals</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Home</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecounterbreadsandcereals">0</h1>
+        </div>
+
+
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <ul data-role="listview"=data-inset"true" data-icon="plus" data-filter="true" data-position-to="window"
+                data-autodividers="true" data-filter-placeholder="Search foods" data-inset="true">
+                (calorie values per 100g)
+
+                <li data-icon="plus" onclick="add(310)"><a href="#"> <img src="images/Bagel.svg">Bagel (310 cals)<br>
+                        <p>Bread ring of yeasted wheat dough</p>
+                    </a></li>
+                <li onclick="add(480)" id="digestive"><a href="#"> <img src="images/digestive.svg">Biscuit digestives
+                        (480 cals)<br>
+                        <p>sweet biscuit, melts in mouth</p>
+                    </a></li>
+                <li onclick="add(370)"><a href="#"> <img src="images/jaffacake.svg">Jaffa cake (370 cals)<br>
+                        <p>small cake with sponge base, orange filling and dark chocolate coated top.</p>
+                    </a></li>
+                <li onclick="add(240)"><a href="#"> <img src="images/whitebread.svg">White Bread - thick slice (240
+                        cals)<br>
+                        <p>Bread that is white, sliced thick</p>
+                    </a></li>
+                <li onclick="add(220)"><a href="#"> <img src="images/brownbread.svg">Wholemeal Bread - thick slice (220
+                        cals)<br>
+                        <p>Bread that is brown, thick slice</p>
+                    </a></li>
+                <li onclick="add(300)"><a href="#"> <img src="images/chipatis.svg">Chapatis (300 cals)<br>
+                        <p>flatbread, normally eaten with curry.</p>
+                    </a></li>
+
+            </ul>
+
+
+
+            </ul>
+            <script>
+                function replaceText6() {
+                    document.getElementById("form6").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+            <div class="ui-field-contain">
+                <label for="username">Name:</label>
+                <input type="text" required name="username" autofocus id="username" value=""
+                    placeholder="please enter your name.">
+            </div>
+            <div class="ui-field-contain">
+                <label for="email">Email Address:</label>
+                <input type="email" required name="email" id="username" value=""
+                    placeholder="Please enter your email address.">
+            </div>
+            <div class="ui-field-contain">
+                <label for="comments">Comments:</label>
+                <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+            </div>
+            <div class="ui-field-contain">
+                <label for="newsletter">
+                    <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                    box if you wish to recieve our newsletter
+                </label>
+            </div>
+            <div class="ui-field-contain">
+                <input type="submit" value="send" name="submit">
+            </div>
+    </div>
+    </form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic6">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm6">
+                <p id="form6">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic6" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm6" onclick="replaceText6()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcaloriesbreadsandcereals" data-icon="heart">
+                                hello</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <!--Breads and cereals page end-->
+
+
+
+    <!--meats and fishstart-->
+    <div data-role="page" id="meatsandfish" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Meats and Fish</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Home</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecountermeatsandfish">0</h1>
+        </div>
+
+
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <ul data-role="listview" data-icon="plus" data-filter="true" data-autodividers="true"
+                data-filter-placeholder="Search foods" data-inset="true">
+                (calorie values per 100g)
+                <li onclick="add(310)"><a href="#"> <img src="images/anchovies.svg">Anchovies tinned (300 cals)<p>small
+                            fish, saltwater.
+                        </p>
+                    </a></li>
+                <li onclick="add(500)"><a href="#"> <img src="images/bacon.svg">Bacon average fried (500 cals)<p>Bacon,
+                            meat from a
+                            pig, fried.
+                        </p></a></li>
+                <li onclick="add(380)"><a href="#"> <img src="images/bacon.svg">Bacon average grilled (380 cals)<p>
+                            Bacon, meat from a
+                            pig, grilled.</p></a></li>
+                <li onclick="add(280)"><a href="#"> <img src="images/meat.svg">Roast Beef (280 cals)<p>beef from a cow
+                        </p></a>
+                </li>
+                <li onclick="add(280)"><a href="#"> <img src="images/beefburger.svg">frozen beefburgers (280 cals)<p>
+                            Beefburgers from the
+                            freezer.
+                        </p></a></li>
+                <li onclick="add(200)"><a href="#"> <img src="images/chicken.svg">Chicken (200 cals)<p>chicken, from a
+                            chicken.</p></a>
+                </li>
+
+
+
+            </ul>
+
+
+
+            </ul>
+            <script>
+                function replaceText7() {
+                    document.getElementById("form7").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+        <div class="ui-field-contain">
+            <label for="username">Name:</label>
+            <input type="text" required name="username" autofocus id="username" value=""
+                placeholder="please enter your name.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="email">Email Address:</label>
+            <input type="email" required name="email" id="username" value=""
+                placeholder="Please enter your email address.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="comments">Comments:</label>
+            <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+        </div>
+        <div class="ui-field-contain">
+            <label for="newsletter">
+                <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                box if you wish to recieve our newsletter
+            </label>
+        </div>
+        <div class="ui-field-contain">
+            <input type="submit" value="send" name="submit">
+        </div>
+</div>
+</form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic7">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm7">
+                <p id="form7">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic7" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm7" onclick="replaceText7()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcaloriesmeatsandfish" data-icon="heart">
+                                <!--calories go here--></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <!--meats and fish page end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--meats and fishstart-->
+    <div data-role="page" id="fruitandveg" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Fruit and Veg</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Home</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecounterfruitandveg">0</h1>
+        </div>
+
+
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <ul data-role="listview" data-icon="plus" data-filter="true" data-autodividers="true"
+                data-filter-placeholder="Search foods" data-inset="true">
+                (calorie values per 100g)
+                <li onclick="add(44)"><a href="#"> <img src="images/apple.svg">Apple (44 cals)<p>sweet edible from an
+                            apple tree.</p>
+                    </a></li>
+                <li onclick="add(65)"><a href="#"> <img src="images/banana.svg">Banana (65 cals)<p>edible fruit that is
+                            technically a
+                            berry.</p></a></li>
+                <li onclick="add(80)"><a href="#"> <img src="images/bakedbeans.svg">Baked Beans (80 cals)<p>beans baked
+                            in sauce, normally
+                            tomato.</p></a>
+                </li>
+                <li onclick="add(130)"><a href="#"> <img src="images/driedbeans.svg">Dried Beans (130 cals)<p>beans
+                            cooked in water</p></a>
+                </li>
+                <li onclick="add(25)"><a href="#"> <img src="images/blackberry.svg">Blackberries (25 cals)<p>small
+                            berries that grow on
+                            brambles</p></a>
+                </li>
+                <li onclick="add(30)"><a href="#"> <img src="images/blackcurrant.svg">Blackcurrants (30 cals)<p>small
+                            berry that is juicy.
+                        </p></a>
+                </li>
+            </ul>
+            </ul>
+            <script>
+                function replaceText8() {
+                    document.getElementById("form8").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+        <div class="ui-field-contain">
+            <label for="username">Name:</label>
+            <input type="text" required name="username" autofocus id="username" value=""
+                placeholder="please enter your name.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="email">Email Address:</label>
+            <input type="email" required name="email" id="username" value=""
+                placeholder="Please enter your email address.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="comments">Comments:</label>
+            <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+        </div>
+        <div class="ui-field-contain">
+            <label for="newsletter">
+                <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                box if you wish to recieve our newsletter
+            </label>
+        </div>
+        <div class="ui-field-contain">
+            <input type="submit" value="send" name="submit">
+        </div>
+</div>
+</form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic8">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm8">
+                <p id="form8">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic8" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm8" onclick="replaceText8()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcaloriesfruitandveg" data-icon="heart">
+                                <!--calories go here--></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <!--meats and fish end-->
+
+
+
+
+    <!--Milk and Dairy start-->
+    <div data-role="page" id="milkanddairy" data-theme="a">
+
+        <header data-role="header" data-position="fixed">
+            <h1>Millk and Dairy</h1>
+            <a href="#main" class="ui-btn-left ui-btn ui-icon-back  ui-corner-all" data-role="button"
+                role="button">Home</a>
+        </header>
+
+        <div id="headerimage" style="text-align: center;">
+            <h1>Calories: </h1>
+            <h1 id="caloriecountermilkanddairy">0</h1>
+        </div>
+
+
+        <main data-role="main" class="ui-content" data-theme="a">
+
+            <ul data-role="listview" data-icon="plus" data-filter="true" data-autodividers="true"
+                data-filter-placeholder="Search foods" data-inset="true">
+                (calorie values per 100g)
+                <li onclick="add(70)"><a href="#"> <img src="images/milk.svg">Whole Milk (70 cals)<p>Cow's milk</p>
+                    </a></li>
+                <li onclick="add(440)"><a href="#"> <img src="images/cheese.svg">Cheese (440 cals)<p>
+                            Average cheddar cheese</p></a></li>
+                <li onclick="add(200)"><a href="#"> <img src="images/cream.svg">Fresh Cream (200 cals)<p>made from the
+                            fat layer skimmed
+                            from milk before homogenization.</p></a>
+                </li>
+                <li onclick="add(180)"><a href="#"> <img src="images/egg.svg">Fried Egg (180 calories)<p>Chicken egg
+                            fried on a pan.
+                        </p></a>
+                </li>
+                <li onclick="add(60)"><a href="#"> <img src="images/yoghurt.svg">Natural Yogurt (60 cals)<p>Unflavoured
+                            Yogurt.</p></a>
+                </li>
+                <li onclick="add(100)"><a href="#"> <img src="images/custard.svg">Custard (100 cals)<p>yellow tasty
+                            liquid.
+                        </p></a>
+                </li>
+            </ul>
+            </ul>
+            <script>
+                function replaceText9() {
+                    document.getElementById("form9").innerHTML = ` <h1>Contact Form</h1>   <form method="post" action="">
+        <div class="ui-field-contain">
+            <label for="username">Name:</label>
+            <input type="text" required name="username" autofocus id="username" value=""
+                placeholder="please enter your name.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="email">Email Address:</label>
+            <input type="email" required name="email" id="username" value=""
+                placeholder="Please enter your email address.">
+        </div>
+        <div class="ui-field-contain">
+            <label for="comments">Comments:</label>
+            <textarea name="comments" id="comments" placeholder="Enter Your comment here." value=""></textarea>
+        </div>
+        <div class="ui-field-contain">
+            <label for="newsletter">
+                <input type="checkbox" name="newsletter" id="newsletter" value="no" data-mini="true">tick this
+                box if you wish to recieve our newsletter
+            </label>
+        </div>
+        <div class="ui-field-contain">
+            <input type="submit" value="send" name="submit">
+        </div>
+</div>
+</form>`
+                }
+
+            </script>
+            <div data-role="popup" id="popupBasic9">
+                    <a href="#home" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>developer:</strong>lauchlyn Downs</p>
+                <p><strong>Jquery Mobile 1.4.5</strong></p>
+                <p><strong>Release Date:</strong>10/01/2020</p>
+                <p><strong>Version Number</strong>42353425</p>
+            </div>
+            <div data-role="popup" id="popupForm9">
+                <p id="form9">hello</p>
+                   <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right"></a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="bottom">
+                    <ul>
+                        <li><a href="#popupBasic9" data-rel="popup" data-icon="info">Developer</a></li>
+                        <li><a href="#popupForm9" onclick="replaceText9()" data-rel="popup" data-icon="mail">Contact</a>
+                        </li>
+                        <li><a href="#current" id="bottomcaloriesmilkanddairy" data-icon="heart">
+                                <!--calories go here--></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    <!--Milk and dairy end-->
+
+
+
+
+
+
+
+</body>
+
+</html>
