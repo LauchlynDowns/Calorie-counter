@@ -104,7 +104,9 @@
 </script>
 
 
-
+<div data-role="popup" id="clear">
+    <p>Calorie count cleared</p>
+</div>
 
 
 
@@ -138,11 +140,16 @@
                         <p>How to use the app</p>
                     </a>
                 </li>
-                <li><a href="#">
+                <li><a href="#clear" data-rel="popup" 
+                        data-transition="pop">
                         <img src="">
                         <h2 onclick="clearCalories()">Reset calorie count</h2>
                         <p onclick="clearCalories()">Set the calorie counter to 0</p>
                     </a>
+                  
+                    <div data-role="popup" id="clear">
+                        <p>Calorie count cleared</p>
+                    </div>
 
                     <!--list to select the food group-->
                     <div data-role="collapsible">
